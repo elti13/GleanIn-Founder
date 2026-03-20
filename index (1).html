@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GleanIn — For Founders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #F4500A;
+  --orange-light: #FF6B35;
+  --orange-pale: rgba(244,80,10,0.08);
+  --white: #FFFFFF;
+  --black: #0A0A0A;
+  --grey-mid: #222222;
+  --grey-light: #888888;
+  --grey-border: #2A2A2A;
+  --grey-surface: #141414;
+  --grey-deep: #0D0D0D;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+
+/* NAV — distinct with orange accent bar on bottom */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px;
+  height: 68px;
+  background: var(--grey-deep);
+  border-bottom: 2px solid var(--orange);
+}
+.nav-logo { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; text-decoration: none; color: var(--orange); }
+.nav-logo span { color: var(--white); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--grey-light); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 6px; font-weight: 500 !important; transition: background 0.2s !important; }
+.nav-cta:hover { background: var(--orange-light) !important; color: var(--white) !important; }
+.nav-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-light); margin-left: 16px; padding-left: 16px; border-left: 1px solid var(--grey-border); }
+.nav-tag a { color: var(--orange); text-decoration: none; }
+.nav-tag a:hover { text-decoration: underline; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 56px;
+  max-width: 1000px; margin: 0 auto;
+}
+.hero-label { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 32px; }
+.hero h1 { font-size: clamp(48px, 8vw, 96px); font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; color: var(--white); margin-bottom: 36px; }
+.hero h1 span { color: var(--orange); }
+.hero-sub { font-size: 20px; line-height: 1.6; color: var(--grey-light); font-weight: 300; max-width: 520px; margin-bottom: 48px; }
+.btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 16px 36px; border-radius: 8px; font-size: 15px; font-weight: 500; font-family: 'Inter', sans-serif; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; }
+.btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(244,80,10,0.3); }
+
+/* SECTIONS */
+.section { padding: 100px 56px; max-width: 1100px; margin: 0 auto; }
+.bg-dark { background: var(--grey-surface); }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 18px; }
+h2 { font-family: 'Inter', sans-serif; font-size: clamp(28px, 3vw, 42px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--white); margin-bottom: 14px; }
+.section-sub { font-size: 16px; color: var(--grey-light); line-height: 1.65; max-width: 500px; font-weight: 300; margin-bottom: 56px; }
+
+/* HOW IT WORKS */
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--grey-border); border: 1px solid var(--grey-border); border-radius: 14px; overflow: hidden; margin-bottom: 56px; }
+.step { background: var(--grey-surface); padding: 40px 32px; transition: background 0.2s; }
+.step:hover { background: var(--grey-mid); }
+.step-number { font-size: 13px; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; margin-bottom: 20px; }
+.step-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 12px; letter-spacing: -0.02em; }
+.step-desc { font-size: 14px; line-height: 1.65; color: var(--grey-light); font-weight: 300; }
+
+/* EXPLAINER */
+.explainer { background: var(--grey-mid); border-left: 3px solid var(--orange); border-radius: 14px; padding: 52px 60px; }
+.explainer-text { font-size: clamp(17px, 2vw, 22px); line-height: 1.65; color: rgba(255,255,255,0.75); font-weight: 300; max-width: 720px; }
+.explainer-text strong { color: var(--white); font-weight: 500; }
+.explainer-text .hi { color: var(--orange); font-weight: 500; }
+
+/* CALCULATOR */
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.calc-box { background: var(--grey-surface); border: 1px solid var(--grey-border); border-radius: 14px; padding: 36px; }
+.calc-box-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 28px; letter-spacing: -0.01em; }
+.input-group { margin-bottom: 20px; }
+.input-label { display: block; font-size: 13px; font-weight: 500; color: var(--grey-light); margin-bottom: 8px; }
+.input-wrap { position: relative; }
+.input-wrap span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--grey-light); pointer-events: none; }
+.input-field { width: 100%; padding: 13px 14px 13px 28px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; color: var(--white); background: var(--grey-mid); outline: none; transition: border-color 0.2s; }
+.input-field:focus { border-color: var(--orange); }
+.input-field::placeholder { color: #444; }
+.calc-result { margin-top: 28px; padding: 24px; background: rgba(244,80,10,0.08); border-radius: 10px; border: 1px solid rgba(244,80,10,0.2); display: none; }
+.result-label { font-size: 11px; font-weight: 600; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.result-pct { font-size: 44px; font-weight: 800; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+.scenario-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--grey-border); font-size: 13px; }
+.scenario-row:last-child { border-bottom: none; }
+.scenario-label { color: var(--grey-light); font-weight: 300; }
+.scenario-right { display: flex; align-items: center; gap: 8px; }
+.scenario-val { font-weight: 700; font-size: 13px; color: var(--white); }
+.scenario-pct { color: var(--orange); font-size: 12px; font-weight: 500; }
+
+/* PRICING */
+.pricing-card { width: 340px; background: var(--grey-mid); border: 1px solid var(--grey-border); border-radius: 14px; padding: 44px; }
+.price-amount { font-size: 60px; font-weight: 800; color: var(--white); letter-spacing: -0.04em; line-height: 1; margin-bottom: 4px; }
+.price-amount sup { font-size: 24px; font-weight: 600; vertical-align: super; letter-spacing: 0; color: var(--orange); }
+.price-period { font-size: 14px; color: var(--grey-light); margin-bottom: 32px; font-weight: 300; }
+.price-features { list-style: none; margin-bottom: 36px; }
+.price-features li { font-size: 14px; color: rgba(255,255,255,0.75); padding: 10px 0; border-bottom: 1px solid var(--grey-border); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; font-weight: 300; }
+.price-features li:last-child { border-bottom: none; }
+.price-features li::before { content: '—'; color: var(--orange); flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+.price-note { font-size: 12px; color: var(--grey-light); line-height: 1.6; margin-top: 16px; font-weight: 300; opacity: 0.5; }
+
+/* WHO IT'S FOR */
+.for-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.for-card { padding: 32px; border: 1px solid var(--grey-border); border-radius: 12px; background: var(--grey-surface); transition: border-color 0.2s; }
+.for-card:hover { border-color: var(--orange); }
+.for-stage { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+.for-title { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; letter-spacing: -0.02em; }
+.for-desc { font-size: 13px; line-height: 1.65; color: var(--grey-light); font-weight: 300; }
+
+/* FORM */
+.form-container { max-width: 640px; }
+.form-section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-light); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--grey-border); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 20px; }
+.form-label { display: block; font-size: 13px; font-weight: 500; color: var(--grey-light); margin-bottom: 7px; }
+.form-label span { color: var(--orange); }
+.form-input, .form-textarea, select.form-input {
+  width: 100%; padding: 13px 15px;
+  border: 1.5px solid var(--grey-border); border-radius: 8px;
+  font-size: 15px; font-family: 'Inter', sans-serif;
+  color: var(--white); background: var(--grey-mid);
+  outline: none; transition: border-color 0.2s;
+  appearance: none;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: #444; }
+.form-input:focus, .form-textarea:focus, select.form-input:focus { border-color: var(--orange); }
+.form-textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+.form-hint { font-size: 12px; color: var(--grey-light); margin-top: 6px; line-height: 1.5; font-weight: 300; opacity: 0.7; }
+.dollar-wrap { position: relative; }
+.dollar-wrap span { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--grey-light); font-size: 15px; pointer-events: none; }
+.dollar-wrap input { padding-left: 26px; }
+.form-spacer { height: 32px; }
+
+/* BADGE CHECKBOXES */
+.badge-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+.badge-check { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; padding: 12px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; transition: border-color 0.2s, background 0.2s; background: var(--grey-mid); }
+.badge-check:hover { border-color: var(--orange); background: rgba(244,80,10,0.06); }
+.badge-check input { display: none; }
+.badge-check-box { width: 18px; height: 18px; border: 1.5px solid var(--grey-light); border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; background: var(--grey-surface); }
+.badge-check input:checked ~ .badge-check-box { background: var(--orange); border-color: var(--orange); }
+.badge-check input:checked ~ .badge-check-box::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
+.badge-check input:checked ~ .badge-check-label { color: var(--white); font-weight: 500; }
+.badge-check-label { font-size: 14px; color: var(--grey-light); font-weight: 300; line-height: 1.4; }
+.badge-check:has(input:checked) { border-color: rgba(244,80,10,0.3); background: rgba(244,80,10,0.06); }
+
+/* PRIVACY */
+.privacy-row { display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; background: rgba(244,80,10,0.06); border: 1px solid rgba(244,80,10,0.15); border-radius: 8px; margin-bottom: 20px; }
+.privacy-row p { font-size: 13px; color: var(--grey-light); line-height: 1.5; font-weight: 300; }
+.submit-area { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.submit-note { font-size: 12px; color: var(--grey-light); line-height: 1.5; font-weight: 300; opacity: 0.7; }
+.success-box { display: none; margin-top: 24px; padding: 22px 24px; background: rgba(22,101,52,0.2); border: 1px solid rgba(187,247,208,0.2); border-radius: 10px; }
+.success-box.show { display: block; }
+.success-box h4 { font-size: 15px; font-weight: 700; color: #4ade80; margin-bottom: 6px; }
+.success-box p { font-size: 13px; color: #86efac; line-height: 1.5; font-weight: 300; }
+
+/* FOOTER — distinct with full orange top border + dark surface */
+footer {
+  background: var(--grey-deep);
+  border-top: 2px solid var(--orange);
+  padding: 48px 56px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.footer-logo { font-weight: 800; font-size: 24px; color: var(--orange); }
+.footer-logo span { color: var(--white); }
+.footer-nav { display: flex; gap: 28px; justify-content: center; }
+.footer-nav a { font-size: 13px; color: var(--grey-light); text-decoration: none; transition: color 0.2s; }
+.footer-nav a:hover { color: var(--white); }
+.footer-right { text-align: right; }
+.footer-copy { font-size: 12px; color: var(--grey-light); font-weight: 300; opacity: 0.5; margin-bottom: 4px; }
+.footer-link { font-size: 12px; color: var(--orange); text-decoration: none; }
+.footer-link:hover { text-decoration: underline; }
+
+/* SCROLL REVEAL — scale in */
+.reveal {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.reveal-d1 { transition-delay: 0.05s; }
+.reveal-d2 { transition-delay: 0.12s; }
+.reveal-d3 { transition-delay: 0.19s; }
+.reveal-d4 { transition-delay: 0.26s; }
+.reveal-d5 { transition-delay: 0.33s; }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 72px; min-height: auto; }
+  .section { padding: 64px 24px; }
+  .steps { grid-template-columns: 1fr; }
+  .calc-grid { grid-template-columns: 1fr; }
+  .for-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .explainer { padding: 36px 28px; }
+  footer { grid-template-columns: 1fr; gap: 20px; padding: 32px 24px; text-align: center; }
+  .footer-right { text-align: center; }
+  .footer-nav { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Glean<span>In</span></div>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#post" class="nav-cta">Post a Project</a></li>
+    <li><span class="nav-tag">Talent? <a href="talent.html">Join here</a></span></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="reveal reveal-d1">
+    <p class="hero-label">GleanIn — For Founders</p>
+  </div>
+  <div class="reveal reveal-d2">
+    <h1>Vetted talent.<br><span>Zero upfront cost.</span></h1>
+  </div>
+  <div class="reveal reveal-d3">
+    <p class="hero-sub">Connect with vetted professionals who defer payment until your next funding round.</p>
+  </div>
+  <div class="reveal reveal-d4">
+    <a href="#post" class="btn-primary">Post a Project</a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="bg-dark">
+<section class="section" id="how-it-works">
+  <div class="reveal reveal-d1"><p class="section-label">How It Works</p></div>
+  <div class="reveal reveal-d2"><h2>Three steps.</h2></div>
+  <div class="reveal reveal-d3"><p class="section-sub">Simple from start to finish.</p></div>
+  <div class="steps">
+    <div class="step reveal reveal-d1">
+      <div class="step-number">STEP 01</div>
+      <div class="step-title">Post your project</div>
+      <p class="step-desc">Describe what you need, set a deferred payment amount, and define milestones.</p>
+    </div>
+    <div class="step reveal reveal-d2">
+      <div class="step-number">STEP 02</div>
+      <div class="step-title">A talent applies</div>
+      <p class="step-desc">Verified students and professionals review your project. They reach out directly. They invest in you because they believe in what you are building.</p>
+    </div>
+    <div class="step reveal reveal-d3">
+      <div class="step-number">STEP 03</div>
+      <div class="step-title">You settle at your next round</div>
+      <p class="step-desc">Their deferred payment converts at your next funding round valuation. A standardized agreement protects both parties from day one.</p>
+    </div>
+  </div>
+  <div class="reveal reveal-d4">
+    <div class="explainer">
+      <p class="explainer-text">You need a contractor. GleanIn lets you defer that payment and get the work done today. At a <strong>$10M valuation,</strong> a $5,000 project costs you <span class="hi">0.05% of your company.</span></p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- CALCULATOR -->
+<section class="section" id="calculator">
+  <div class="reveal reveal-d1"><p class="section-label">Equity Calculator</p></div>
+  <div class="reveal reveal-d2"><h2>See what you're offering.</h2></div>
+  <div class="reveal reveal-d3"><p class="section-sub">Enter the deferred payment amount and your target valuation.</p></div>
+  <div class="calc-grid">
+    <div class="calc-box reveal reveal-d1">
+      <div class="calc-box-title">Run your numbers</div>
+      <div class="input-group">
+        <label class="input-label">Deferred payment amount</label>
+        <div class="input-wrap"><span>$</span><input type="number" class="input-field" id="projectValue" placeholder="5000" oninput="calculate()"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Target valuation at next round</label>
+        <div class="input-wrap"><span>$</span><input type="number" class="input-field" id="valuation" placeholder="10000000" oninput="calculate()"></div>
+      </div>
+      <div class="calc-result" id="calcResult">
+        <div class="result-label">Equity you're offering</div>
+        <div class="result-pct" id="equityPct">—</div>
+      </div>
+    </div>
+    <div class="calc-box reveal reveal-d2">
+      <div class="calc-box-title">What does $5,000 cost you?</div>
+      <div id="scenarioTable">
+        <div class="scenario-row"><span class="scenario-label">At $1M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.500%</span></div></div>
+        <div class="scenario-row"><span class="scenario-label">At $2M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.250%</span></div></div>
+        <div class="scenario-row"><span class="scenario-label">At $5M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.100%</span></div></div>
+        <div class="scenario-row"><span class="scenario-label">At $10M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.050%</span></div></div>
+        <div class="scenario-row"><span class="scenario-label">At $20M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.025%</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="bg-dark">
+<section class="section" id="pricing">
+  <div class="reveal reveal-d1"><p class="section-label">Pricing</p></div>
+  <div class="reveal reveal-d2"><h2>One flat rate.</h2></div>
+  <div class="reveal reveal-d3"><p class="section-sub">$25 per month for unlimited project posts and access to our full talent network.</p></div>
+  <div class="reveal reveal-d4" style="max-width:340px;">
+    <div class="pricing-card">
+      <div class="price-amount"><sup>$</sup>25</div>
+      <div class="price-period">per month</div>
+      <ul class="price-features">
+        <li>Unlimited project posts</li>
+        <li>Access to verified talent</li>
+        <li>Standardized agreement, auto-generated</li>
+        <li>Milestone tracking and verification</li>
+        <li>Direct talent contact</li>
+      </ul>
+      <a href="#post" class="btn-primary" style="width:100%;text-align:center;display:block;">Get Started</a>
+      <p class="price-note">No contract. Cancel anytime.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- WHO IT'S FOR -->
+<section class="section">
+  <div class="reveal reveal-d1"><p class="section-label">Who It's For</p></div>
+  <div class="reveal reveal-d2"><h2>Early to mid-stage founders.</h2></div>
+  <div class="reveal reveal-d3"><p class="section-sub">If you're building something real and need skilled people to help you get there.</p></div>
+  <div class="for-grid">
+    <div class="for-card reveal reveal-d1">
+      <div class="for-stage">Pre-Seed</div>
+      <div class="for-title">Before your first round</div>
+      <p class="for-desc">You have the idea and the drive. You need help with research, strategy, or analysis — but your runway doesn't allow for contractor fees yet.</p>
+    </div>
+    <div class="for-card reveal reveal-d2">
+      <div class="for-stage">Seed</div>
+      <div class="for-title">After your first raise</div>
+      <p class="for-desc">Every dollar needs to go to product and growth. Defer non-core costs without giving up meaningful equity too early.</p>
+    </div>
+    <div class="for-card reveal reveal-d3">
+      <div class="for-stage">Series A</div>
+      <div class="for-title">Scaling fast</div>
+      <p class="for-desc">You need specialized help across multiple workstreams. Bring in experienced professionals who are invested in your outcome — literally.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POST A PROJECT -->
+<div class="bg-dark">
+<section class="section" id="post">
+  <div class="reveal reveal-d1"><p class="section-label">Post a Project</p></div>
+  <div class="reveal reveal-d2"><h2>Tell us what you need.</h2></div>
+  <div class="reveal reveal-d3"><p class="section-sub">Your listing reaches verified talent directly.</p></div>
+  <div class="form-container reveal reveal-d4">
+    <form id="projectForm" action="https://formspree.io/f/xojkjqen" method="POST">
+      <div class="form-section-label">Company</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Company Name <span>*</span></label>
+          <input type="text" name="company_name" class="form-input" placeholder="Acme Inc." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Company Website <span>*</span></label>
+          <input type="url" name="company_website" class="form-input" placeholder="https://acme.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">LinkedIn Profile</label>
+        <input type="url" name="linkedin" class="form-input" placeholder="https://linkedin.com/in/yourname">
+      </div>
+      <div class="form-spacer"></div>
+      <div class="form-section-label">Project</div>
+      <div class="form-group">
+        <label class="form-label">Project Title <span>*</span></label>
+        <input type="text" name="project_title" class="form-input" placeholder="e.g. Market Research, Brand Identity, Financial Analysis" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Job Description <span>*</span></label>
+        <textarea name="job_description" class="form-textarea" placeholder="Describe the work, the skills needed, and what a successful outcome looks like..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Area of Interest <span style="color:var(--grey-light);font-weight:300;">(Optional)</span></label>
+        <input type="text" name="area_of_interest" class="form-input" placeholder="e.g. healthcare research, financial modeling, legal research, UX design, go-to-market">
+        <p class="form-hint">What kind of background or skill set are you looking for?</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Deferred Payment Amount <span>*</span></label>
+          <div class="dollar-wrap"><span>$</span><input type="number" name="payment_amount" class="form-input" placeholder="5,000" required></div>
+          <p class="form-hint">The dollar value that converts at your next funding round.</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Timeline <span>*</span></label>
+          <input type="text" name="timeline" class="form-input" placeholder="e.g. 6 weeks, 3 months" required>
+        </div>
+      </div>
+      <div class="form-spacer"></div>
+      <div class="form-section-label">Your Background</div>
+      <p class="form-hint" style="margin-bottom:20px;">Only signals you select are shown — nothing is marked as missing.</p>
+      <div class="form-group">
+        <label class="form-label">Which of these apply to you?</label>
+        <div class="badge-checks">
+          <label class="badge-check"><input type="checkbox" name="badge_exit" value="exited"><span class="badge-check-box"></span><span class="badge-check-label">Previous exit</span></label>
+          <label class="badge-check"><input type="checkbox" name="badge_repeat" value="repeat"><span class="badge-check-box"></span><span class="badge-check-label">2nd or 3rd company</span></label>
+          <label class="badge-check"><input type="checkbox" name="badge_tier1" value="tier1"><span class="badge-check-box"></span><span class="badge-check-label">Worked at a top-tier company (Google, Apple, Stripe, Brex, McKinsey, etc.)</span></label>
+          <label class="badge-check"><input type="checkbox" name="badge_raised" value="raised"><span class="badge-check-box"></span><span class="badge-check-label">Previously raised institutional capital</span></label>
+          <label class="badge-check"><input type="checkbox" name="badge_seed" value="seed"><span class="badge-check-box"></span><span class="badge-check-label">Current company has raised seed or pre-seed</span></label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">How long have you been working on this?</label>
+          <select name="time_building" class="form-input">
+            <option value="">Select</option>
+            <option value="under3">Under 3 months</option>
+            <option value="3to6">3 to 6 months</option>
+            <option value="6to12">6 to 12 months</option>
+            <option value="over12">Over a year</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">What have you built so far?</label>
+          <select name="build_stage" class="form-input">
+            <option value="">Select</option>
+            <option value="idea">Idea stage</option>
+            <option value="prototype">Prototype or demo</option>
+            <option value="mvp">Live MVP</option>
+            <option value="customers">Paying customers</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-spacer"></div>
+      <div class="form-section-label">Your Pitch (Optional)</div>
+      <div class="form-group">
+        <label class="form-label">Want to say more? Add a short pitch.</label>
+        <textarea name="pitch_optional" class="form-textarea" style="min-height:100px;" placeholder="Tell talent why they should work with you. 2-3 sentences is plenty."></textarea>
+      </div>
+      <div class="form-spacer"></div>
+      <div class="form-section-label">Contact</div>
+      <div class="privacy-row"><p>🔒 Your contact email is kept private. Only shared with vetted talent after we review their application.</p></div>
+      <div class="form-group">
+        <label class="form-label">Contact Email <span>*</span></label>
+        <input type="email" name="contact_email" class="form-input" placeholder="you@company.com" required>
+      </div>
+      <div class="submit-area">
+        <button type="submit" class="btn-primary">Submit Project</button>
+        <p class="submit-note">Your listing will be reviewed before going live. Usually within 48 hours.</p>
+      </div>
+      <div class="success-box" id="successBox">
+        <h4>Project received.</h4>
+        <p>We'll review your listing and be in touch within 48 hours.</p>
+      </div>
+    </form>
+  </div>
+</section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Glean<span>In</span></div>
+  <nav class="footer-nav">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#calculator">Calculator</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#post">Post a Project</a>
+  </nav>
+  <div class="footer-right">
+    <p class="footer-copy">© 2026 GleanIn</p>
+    <a href="talent.html" class="footer-link">For Talent →</a>
+  </div>
+</footer>
+
+<script>
+/* SCROLL REVEAL */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+/* CALCULATOR */
+function calculate() {
+  const p = parseFloat(document.getElementById('projectValue').value);
+  const v = parseFloat(document.getElementById('valuation').value);
+  const r = document.getElementById('calcResult');
+  if (p && v && v > 0) {
+    const pct = (p / v) * 100;
+    const fmt = n => n < 0.001 ? n.toFixed(4) + '%' : n < 0.1 ? n.toFixed(4) + '%' : n.toFixed(3) + '%';
+    document.getElementById('equityPct').textContent = fmt(pct);
+    r.style.display = 'block';
+    const vals = [1e6, 2e6, 5e6, 10e6, 20e6];
+    const labels = ['$1M', '$2M', '$5M', '$10M', '$20M'];
+    document.querySelectorAll('.scenario-row').forEach((row, i) => {
+      row.querySelector('.scenario-label').textContent = 'At ' + labels[i] + ' valuation';
+      row.querySelector('.scenario-val').textContent = '$' + p.toLocaleString();
+      row.querySelector('.scenario-pct').textContent = '= ' + fmt((p / vals[i]) * 100);
+    });
+  } else { r.style.display = 'none'; }
+}
+
+/* FORM SUBMIT */
+document.getElementById('projectForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } })
+  .then(() => { document.getElementById('successBox').classList.add('show'); this.reset(); })
+  .catch(() => { document.getElementById('successBox').classList.add('show'); });
+});
+</script>
+</body>
+</html>
