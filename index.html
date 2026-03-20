@@ -35,11 +35,9 @@ nav {
 }
 .nav-logo { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; text-decoration: none; color: #F4500A; }
 .nav-logo span { color: #111111; }
-.nav-links a { font-size: 14px; font-weight: 400; color: #444444; text-decoration: none; transition: color 0.2s; }
-.nav-links a:hover { color: var(--orange); }
 .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
-.nav-links a { font-size: 14px; font-weight: 400; color: var(--grey-light); text-decoration: none; transition: color 0.2s; }
-.nav-links a:hover { color: var(--white); }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--orange); }
 .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 6px; font-weight: 500 !important; transition: background 0.2s !important; }
 .nav-cta:hover { background: var(--orange-light) !important; color: var(--white) !important; }
 .nav-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-light); margin-left: 16px; padding-left: 16px; border-left: 1px solid var(--grey-border); }
@@ -222,7 +220,7 @@ footer {
 <body>
 
 <nav>
-  <div class="nav-logo">Glean<span>In</span></div>
+    <a href="#" class="nav-logo">Glean<span>In</span></a>
   <ul class="nav-links">
     <li><a href="#how-it-works">How It Works</a></li>
     <li><a href="#calculator">Calculator</a></li>
