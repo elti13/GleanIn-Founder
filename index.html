@@ -28,13 +28,15 @@ body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 56px;
-  height: 68px;
-  background: var(--grey-deep);
-  border-bottom: 2px solid var(--orange);
+  padding: 20px 56px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E8E4DF;
 }
-.nav-logo { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; text-decoration: none; color: var(--orange); }
-.nav-logo span { color: var(--white); }
+.nav-logo { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; text-decoration: none; color: #F4500A; }
+.nav-logo span { color: #111111; }
+.nav-links a { font-size: 14px; font-weight: 400; color: #444444; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--orange); }
 .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
 .nav-links a { font-size: 14px; font-weight: 400; color: var(--grey-light); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: var(--white); }
