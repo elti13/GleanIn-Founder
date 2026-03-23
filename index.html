@@ -3,525 +3,841 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GleanIn — For Founders</title>
+<title>GleanIn — Vetted Talent. Zero Upfront.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,700&family=Epilogue:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
+
 :root {
-  --orange: #F4500A;
-  --orange-light: #FF6B35;
-  --orange-pale: #FFF0EA;
-  --white: #FFFFFF;
-  --black: #0A0A0A;
-  --grey-mid: #FAFAF8;
-  --grey-light: #999999;
-  --grey-border: #E8E4DF;
-  --grey-surface: #FAFAF8;
-  --grey-deep: #111111;
+  --white:  #FFFFFF;
+  --off:    #FAFAF8;
+  --o:      #F4500A;
+  --o-pale: #FFF0EA;
+  --green:  #C8E6C0;
+  --green2: #A8D49C;
+  --green-txt: #2A5C1E;
+  --ink:    #111111;
+  --mid:    #E2DDD8;
+  --muted:  #8A8680;
+  --border: #ECEAE6;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; background: var(--white); color: #111111; overflow-x: hidden; }
 
-/* NAV — distinct with orange accent bar on bottom */
+body {
+  font-family: 'Epilogue', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+#cur {
+  position: fixed; z-index: 9999;
+  pointer-events: none;
+  top: 0; left: 0;
+}
+#cur-dot {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: var(--o);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  transition: width .15s, height .15s, background .15s;
+}
+#cur-ring {
+  position: absolute;
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--o);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 0.5;
+  transition: width .3s cubic-bezier(.23,1,.32,1), height .3s cubic-bezier(.23,1,.32,1), opacity .2s;
+}
+body.hov #cur-dot { width: 16px; height: 16px; background: var(--o); }
+body.hov #cur-ring { width: 58px; height: 58px; opacity: 0.25; }
+body.click #cur-dot { background: var(--green2); }
+
+/* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 56px;
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #E8E4DF;
+  height: 62px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 52px;
+  gap: 40px;
 }
-.nav-logo { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; text-decoration: none; color: #F4500A; }
-.nav-logo span { color: #111111; }
-.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
-.nav-links a { font-size: 14px; font-weight: 400; color: var(--slate); text-decoration: none; transition: color 0.2s; }
-.nav-links a:hover { color: var(--orange); }
-.nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 6px; font-weight: 500 !important; transition: background 0.2s !important; }
-.nav-cta:hover { background: var(--orange-light) !important; color: var(--white) !important; }
-.nav-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-light); margin-left: 16px; padding-left: 16px; border-left: 1px solid var(--grey-border); }
-.nav-tag a { color: var(--orange); text-decoration: none; }
-.nav-tag a:hover { text-decoration: underline; }
+.nav-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px; font-weight: 800; font-style: normal;
+  text-decoration: none; color: var(--ink);
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--o); font-style: normal; }
+.nav-links {
+  display: flex; align-items: center; gap: 4px;
+  list-style: none; flex: 1;
+}
+.nav-links a {
+  font-size: 13px; font-weight: 500;
+  color: var(--muted); text-decoration: none;
+  padding: 6px 14px; border-radius: 4px;
+  transition: color .18s, background .18s;
+  letter-spacing: 0.01em;
+}
+.nav-links a:hover { color: var(--ink); background: var(--off); }
+.nav-post {
+  flex-shrink: 0;
+  font-size: 13px; font-weight: 700;
+  background: var(--o); color: #fff;
+  text-decoration: none;
+  padding: 9px 22px; border-radius: 6px;
+  transition: background .18s, transform .15s;
+  letter-spacing: 0.01em;
+}
+.nav-post:hover { background: #d94009; transform: translateY(-1px); }
 
-/* HERO */
+/* ── HERO ── */
 .hero {
   min-height: 100vh;
+  padding: 120px 52px 80px;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 0 56px;
-  max-width: 1000px; margin: 0 auto;
+  position: relative; overflow: hidden;
 }
-.hero-label { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 32px; }
-.hero h1 { font-size: clamp(48px, 8vw, 96px); font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; color: #111111; margin-bottom: 36px; }
-.hero h1 span { color: var(--orange); }
-.hero-sub { font-size: 20px; line-height: 1.6; color: #444444; font-weight: 300; max-width: 520px; margin-bottom: 48px; }
-.btn-primary { display: inline-block; background: var(--orange); color: var(--white); padding: 16px 36px; border-radius: 8px; font-size: 15px; font-weight: 500; font-family: 'Inter', sans-serif; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; }
-.btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(244,80,10,0.3); }
 
-/* SECTIONS */
-.section { padding: 100px 56px; max-width: 1100px; margin: 0 auto; }
-.bg-dark { background: var(--grey-surface); }
-.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 18px; }
-h2 { font-family: 'Inter', sans-serif; font-size: clamp(28px, 3vw, 42px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: #111111; margin-bottom: 14px; }
-.section-sub { font-size: 16px; color: var(--grey-light); line-height: 1.65; max-width: 500px; font-weight: 300; margin-bottom: 56px; }
+/* Faint grid */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.5;
+  pointer-events: none;
+}
 
-/* HOW IT WORKS */
-.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--grey-border); border: 1px solid var(--grey-border); border-radius: 14px; overflow: hidden; margin-bottom: 56px; }
-.step { background: var(--grey-surface); padding: 40px 32px; transition: background 0.2s; }
-.step:hover { background: var(--grey-mid); }
-.step-number { font-size: 13px; font-weight: 700; color: var(--orange); letter-spacing: 0.08em; margin-bottom: 20px; }
-.step-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 12px; letter-spacing: -0.02em; }
-.step-desc { font-size: 14px; line-height: 1.65; color: var(--grey-light); font-weight: 300; }
+/* Orange blob */
+.hero-blob {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244,80,10,0.1) 0%, transparent 70%);
+  top: -120px; right: -80px;
+  pointer-events: none;
+  animation: blob-drift 14s ease-in-out infinite alternate;
+}
+.hero-blob2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(200,230,192,0.35) 0%, transparent 70%);
+  bottom: 60px; left: -60px;
+  position: absolute;
+  animation: blob-drift 18s ease-in-out infinite alternate-reverse;
+}
+@keyframes blob-drift { from{transform:translate(0,0)} to{transform:translate(40px,60px)} }
 
-/* EXPLAINER */
-.explainer { background: var(--grey-mid); border-left: 3px solid var(--orange); border-radius: 14px; padding: 52px 60px; }
-.explainer-text { font-size: clamp(17px, 2vw, 22px); line-height: 1.65; color: rgba(255,255,255,0.75); font-weight: 300; max-width: 720px; }
-.explainer-text strong { color: var(--white); font-weight: 500; }
-.explainer-text .hi { color: var(--orange); font-weight: 500; }
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1160px; margin: 0 auto; width: 100%;
+}
 
-/* CALCULATOR */
-.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-.calc-box { background: var(--grey-surface); border: 1px solid var(--grey-border); border-radius: 14px; padding: 36px; }
-.calc-box-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 28px; letter-spacing: -0.01em; }
-.input-group { margin-bottom: 20px; }
-.input-label { display: block; font-size: 13px; font-weight: 500; color: var(--grey-light); margin-bottom: 8px; }
-.input-wrap { position: relative; }
-.input-wrap span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--grey-light); pointer-events: none; }
-.input-field { width: 100%; padding: 13px 14px 13px 28px; border: 1.5px solid var(--grey-border); border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; color: var(--white); background: var(--grey-mid); outline: none; transition: border-color 0.2s; }
-.input-field:focus { border-color: var(--orange); }
-.input-field::placeholder { color: #444; }
-.calc-result { margin-top: 28px; padding: 24px; background: rgba(244,80,10,0.08); border-radius: 10px; border: 1px solid rgba(244,80,10,0.2); display: none; }
-.result-label { font-size: 11px; font-weight: 600; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-.result-pct { font-size: 44px; font-weight: 800; color: var(--orange); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
-.scenario-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--grey-border); font-size: 13px; }
-.scenario-row:last-child { border-bottom: none; }
-.scenario-label { color: var(--grey-light); font-weight: 300; }
-.scenario-right { display: flex; align-items: center; gap: 8px; }
-.scenario-val { font-weight: 700; font-size: 13px; color: var(--white); }
-.scenario-pct { color: var(--orange); font-size: 12px; font-weight: 500; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--o);
+  margin-bottom: 32px;
+  opacity: 0; animation: up .7s .1s forwards;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--o);
+}
 
-/* PRICING */
-.pricing-card { width: 340px; background: var(--grey-mid); border: 1px solid var(--grey-border); border-radius: 14px; padding: 44px; }
-.price-amount { font-size: 60px; font-weight: 800; color: var(--white); letter-spacing: -0.04em; line-height: 1; margin-bottom: 4px; }
-.price-amount sup { font-size: 24px; font-weight: 600; vertical-align: super; letter-spacing: 0; color: var(--orange); }
-.price-period { font-size: 14px; color: var(--grey-light); margin-bottom: 32px; font-weight: 300; }
-.price-features { list-style: none; margin-bottom: 36px; }
-.price-features li { font-size: 14px; color: rgba(255,255,255,0.75); padding: 10px 0; border-bottom: 1px solid var(--grey-border); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; font-weight: 300; }
-.price-features li:last-child { border-bottom: none; }
-.price-features li::before { content: '—'; color: var(--orange); flex-shrink: 0; font-size: 12px; margin-top: 2px; }
-.price-note { font-size: 12px; color: var(--grey-light); line-height: 1.6; margin-top: 16px; font-weight: 300; opacity: 0.5; }
+.hero-h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(56px, 8vw, 112px);
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 36px;
+  opacity: 0; animation: up .8s .22s forwards;
+}
+.hero-h1 em { color: var(--o); font-style: normal; font-weight: 800; }
+.hero-h1 .block { display: block; }
 
-/* WHO IT'S FOR */
-.for-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-.for-card { padding: 32px; border: 1px solid var(--grey-border); border-radius: 12px; background: var(--grey-surface); transition: border-color 0.2s; }
-.for-card:hover { border-color: var(--orange); }
-.for-stage { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
-.for-title { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; letter-spacing: -0.02em; }
-.for-desc { font-size: 13px; line-height: 1.65; color: var(--grey-light); font-weight: 300; }
+.hero-row {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 60px;
+  opacity: 0; animation: up .8s .38s forwards;
+}
+.hero-sub {
+  font-size: 17px; line-height: 1.75;
+  color: var(--muted); font-weight: 300;
+  max-width: 480px;
+}
+.hero-sub strong { color: var(--ink); font-weight: 500; }
+.hero-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; flex-shrink: 0; }
+.btn-o {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--o); color: #fff;
+  font-size: 14px; font-weight: 700;
+  text-decoration: none;
+  padding: 15px 32px; border-radius: 7px;
+  transition: background .18s, transform .15s, box-shadow .18s;
+  white-space: nowrap;
+}
+.btn-o:hover { background: #d94009; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(244,80,10,0.28); }
+.btn-ghost {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  transition: color .18s;
+  white-space: nowrap;
+}
+.btn-ghost:hover { color: var(--ink); }
 
-/* FORM */
-.form-container { max-width: 640px; }
-.form-section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-light); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--grey-border); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.form-group { margin-bottom: 20px; }
-.form-label { display: block; font-size: 13px; font-weight: 500; color: var(--grey-light); margin-bottom: 7px; }
-.form-label span { color: var(--orange); }
-.form-input, .form-textarea, select.form-input {
-  width: 100%; padding: 13px 15px;
-  border: 1.5px solid var(--grey-border); border-radius: 8px;
-  font-size: 15px; font-family: 'Inter', sans-serif;
-  color: var(--white); background: var(--grey-mid);
-  outline: none; transition: border-color 0.2s;
+/* Green pill */
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green); color: var(--green-txt);
+  font-size: 12px; font-weight: 600;
+  padding: 6px 14px; border-radius: 999px;
+  opacity: 0; animation: up .7s .52s forwards;
+  margin-top: 28px;
+  width: fit-content;
+  letter-spacing: 0.02em;
+}
+.hero-pill-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green2); }
+
+@keyframes up { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ── HOW IT WORKS ── */
+.hiw {
+  padding: 100px 52px;
+  max-width: 1160px; margin: 0 auto;
+}
+.hiw-top {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 40px; margin-bottom: 64px;
+}
+.hiw-heading {}
+.sec-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--o);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.sec-eyebrow::before { content:''; width:20px; height:2px; background:var(--o); }
+h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  line-height: 1.05; letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--ink);
+}
+h2 em { color: var(--o); font-style: normal; }
+.hiw-note {
+  font-size: 14px; color: var(--muted); line-height: 1.7;
+  max-width: 320px; font-weight: 300; text-align: right;
+}
+
+/* Steps — horizontal numbered list */
+.steps {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  position: relative;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 28px; left: calc(16.67% + 0px); right: calc(16.67% + 0px);
+  height: 1px; background: var(--border);
+  z-index: 0;
+}
+.step {
+  padding: 0 36px 0 0;
+  position: relative; z-index: 1;
+  transition: transform .2s;
+}
+.step:hover { transform: translateY(-4px); }
+.step:last-child { padding-right: 0; }
+.step-dot {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; color: var(--o);
+  transition: background .2s, border-color .2s, box-shadow .2s;
+}
+.step:hover .step-dot {
+  background: var(--o); color: #fff;
+  border-color: var(--o);
+  box-shadow: 0 8px 24px rgba(244,80,10,0.25);
+}
+.step-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px; font-weight: 700; color: var(--ink);
+  margin-bottom: 12px; letter-spacing: -0.02em;
+}
+.step-body { font-size: 14px; line-height: 1.8; color: var(--muted); font-weight: 300; }
+
+/* Pull callout */
+.hiw-callout {
+  margin-top: 72px;
+  background: var(--o);
+  border-radius: 14px;
+  padding: 48px 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  transition: transform .2s, box-shadow .2s;
+}
+.hiw-callout:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(244,80,10,0.2); }
+.callout-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  color: #fff; line-height: 1.4; font-weight: 700;
+  max-width: 600px;
+}
+.callout-text strong { font-weight: 800; }
+.callout-link {
+  flex-shrink: 0;
+  font-size: 14px; font-weight: 700;
+  color: var(--o); background: #fff;
+  text-decoration: none;
+  padding: 14px 28px; border-radius: 7px;
+  white-space: nowrap;
+  transition: background .18s, color .18s;
+}
+.callout-link:hover { background: var(--ink); color: #fff; }
+
+/* ── CALCULATOR ── */
+.calc-section {
+  background: var(--off);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.calc-inner {
+  max-width: 1160px; margin: 0 auto;
+  padding: 100px 52px;
+}
+.calc-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; margin-top: 56px;
+}
+.calc-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 44px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.calc-card:hover { border-color: rgba(244,80,10,0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.calc-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 32px; letter-spacing: -0.02em;
+}
+.inp-lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+.inp-wrap { position: relative; margin-bottom: 28px; }
+.inp-pre { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 15px; }
+.inp {
+  width: 100%; padding: 14px 14px 14px 30px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 17px; font-family: 'Epilogue', sans-serif; font-weight: 500;
+  color: var(--ink); background: var(--off);
+  outline: none; transition: border-color .2s, background .2s;
+}
+.inp::placeholder { color: #ccc; font-weight: 300; }
+.inp:focus { border-color: var(--o); background: var(--white); }
+.calc-result {
+  display: none; margin-top: 8px;
+  padding: 24px; border-radius: 10px;
+  background: var(--o-pale);
+  border: 1px solid rgba(244,80,10,0.18);
+}
+.cr-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--o); margin-bottom: 6px; }
+.cr-pct {
+  font-family: 'Instrument Serif', serif;
+  font-size: 64px; line-height: 1; color: var(--o); letter-spacing: -0.02em;
+}
+
+/* Scenario table */
+.sc-table { width: 100%; border-collapse: collapse; }
+.sc-table th {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); padding: 0 0 12px; text-align: left;
+  border-bottom: 1.5px solid var(--ink);
+}
+.sc-table td { padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+.sc-table tr:last-child td { border-bottom: none; }
+.sc-table .td-o { font-weight: 700; color: var(--o); font-size: 16px; }
+.sc-table tr { transition: background .15s; }
+.sc-table tr:hover td { background: rgba(244,80,10,0.04); }
+
+/* ── PRICING ── */
+.pricing-section {
+  max-width: 1160px; margin: 0 auto;
+  padding: 100px 52px;
+}
+.pricing-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: start; margin-top: 56px;
+}
+.pricing-text .sub {
+  font-size: 16px; line-height: 1.8; color: var(--muted);
+  font-weight: 300; margin-bottom: 36px; max-width: 380px;
+}
+.pricing-features { list-style: none; }
+.pricing-features li {
+  font-size: 14px; padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 12px; align-items: flex-start;
+  color: var(--ink); line-height: 1.5;
+  transition: padding-left .2s;
+}
+.pricing-features li:hover { padding-left: 4px; }
+.pricing-features li:last-child { border-bottom: none; }
+.pricing-features li::before { content: '→'; color: var(--o); flex-shrink: 0; font-size: 14px; margin-top: 0; }
+
+.pricing-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.pricing-card:hover {
+  border-color: var(--o);
+  box-shadow: 0 20px 60px rgba(244,80,10,0.12);
+  transform: translateY(-4px);
+}
+.card-top {
+  background: var(--ink);
+  padding: 40px 44px;
+}
+.card-price {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 80px; line-height: 1; font-weight: 800;
+  color: var(--white); letter-spacing: -0.04em;
+}
+.card-price sup { font-size: 30px; color: var(--o); vertical-align: super; }
+.card-period { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+.card-bottom { padding: 36px 44px; }
+.card-feats { list-style: none; margin-bottom: 36px; }
+.card-feats li {
+  font-size: 14px; padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 12px;
+  color: var(--ink); line-height: 1.5; font-weight: 400;
+}
+.card-feats li:last-child { border-bottom: none; }
+.card-feats li::before { content: '✓'; color: var(--green-txt); font-weight: 700; flex-shrink: 0; }
+.card-cta {
+  display: block; text-align: center;
+  background: var(--o); color: #fff;
+  font-size: 14px; font-weight: 700;
+  text-decoration: none; padding: 17px;
+  border-radius: 8px;
+  transition: background .18s;
+}
+.card-cta:hover { background: #d94009; }
+.card-fine { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
+
+/* ── FORM ── */
+.form-section {
+  background: var(--off);
+  border-top: 1px solid var(--border);
+}
+.form-inner {
+  max-width: 1160px; margin: 0 auto;
+  padding: 100px 52px;
+  display: grid; grid-template-columns: 340px 1fr;
+  gap: 96px;
+}
+.form-aside {}
+.aside-box {
+  background: var(--green);
+  border-radius: 14px;
+  padding: 32px 28px;
+  margin-bottom: 32px;
+}
+.aside-box-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px; font-weight: 700; color: var(--green-txt);
+  margin-bottom: 10px; letter-spacing: -0.02em;
+}
+.aside-box-body { font-size: 13px; line-height: 1.75; color: var(--green-txt); font-weight: 400; opacity: 0.85; }
+.aside-facts { }
+.aside-fact {
+  font-size: 13px; line-height: 1.75; color: var(--muted);
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  display: flex; gap: 10px;
+}
+.aside-fact:last-child { border-bottom: none; }
+.af-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--o); flex-shrink: 0; margin-top: 7px; }
+
+/* Form fields */
+.fsec { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.fg { margin-bottom: 20px; }
+.fl { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.fl .r { color: var(--o); }
+.fi, .ft, select.fi {
+  width: 100%; padding: 13px 14px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 14px; font-family: 'Epilogue', sans-serif;
+  color: var(--ink); background: var(--white);
+  outline: none; transition: border-color .2s;
   appearance: none;
 }
-.form-input::placeholder, .form-textarea::placeholder { color: #444; }
-.form-input:focus, .form-textarea:focus, select.form-input:focus { border-color: var(--orange); }
-.form-textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
-.form-hint { font-size: 12px; color: var(--grey-light); margin-top: 6px; line-height: 1.5; font-weight: 300; opacity: 0.7; }
-.dollar-wrap { position: relative; }
-.dollar-wrap span { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--grey-light); font-size: 15px; pointer-events: none; }
-.dollar-wrap input { padding-left: 26px; }
-.form-spacer { height: 32px; }
+.fi::placeholder, .ft::placeholder { color: #ccc; }
+.fi:focus, .ft:focus, select.fi:focus { border-color: var(--o); }
+.ft { resize: vertical; min-height: 120px; line-height: 1.65; }
+.fhint { font-size: 11px; color: var(--muted); margin-top: 5px; }
+.dollar-f { position: relative; }
+.dollar-f .dp { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.dollar-f .fi { padding-left: 26px; }
+.fspacer { height: 32px; }
 
-/* BADGE CHECKBOXES */
-.badge-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
-.badge-check { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; padding: 12px 14px; border: 1.5px solid var(--grey-border); border-radius: 8px; transition: border-color 0.2s, background 0.2s; background: var(--grey-mid); }
-.badge-check:hover { border-color: var(--orange); background: rgba(244,80,10,0.06); }
-.badge-check input { display: none; }
-.badge-check-box { width: 18px; height: 18px; border: 1.5px solid var(--grey-light); border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; background: var(--grey-surface); }
-.badge-check input:checked ~ .badge-check-box { background: var(--orange); border-color: var(--orange); }
-.badge-check input:checked ~ .badge-check-box::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
-.badge-check input:checked ~ .badge-check-label { color: var(--white); font-weight: 500; }
-.badge-check-label { font-size: 14px; color: var(--grey-light); font-weight: 300; line-height: 1.4; }
-.badge-check:has(input:checked) { border-color: rgba(244,80,10,0.3); background: rgba(244,80,10,0.06); }
-
-/* PRIVACY */
-.privacy-row { display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; background: rgba(244,80,10,0.06); border: 1px solid rgba(244,80,10,0.15); border-radius: 8px; margin-bottom: 20px; }
-.privacy-row p { font-size: 13px; color: var(--grey-light); line-height: 1.5; font-weight: 300; }
-.submit-area { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.submit-note { font-size: 12px; color: var(--grey-light); line-height: 1.5; font-weight: 300; opacity: 0.7; }
-.success-box { display: none; margin-top: 24px; padding: 22px 24px; background: rgba(22,101,52,0.2); border: 1px solid rgba(187,247,208,0.2); border-radius: 10px; }
-.success-box.show { display: block; }
-.success-box h4 { font-size: 15px; font-weight: 700; color: #4ade80; margin-bottom: 6px; }
-.success-box p { font-size: 13px; color: #86efac; line-height: 1.5; font-weight: 300; }
-
-/* FOOTER — distinct with full orange top border + dark surface */
-footer {
-  background: var(--grey-deep);
-  border-top: 2px solid var(--orange);
-  padding: 48px 56px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+/* Checkboxes */
+.bcheck-list { display: flex; flex-direction: column; gap: 7px; }
+.bcheck {
+  display: flex; align-items: flex-start; gap: 12px;
+  cursor: none; padding: 11px 14px;
+  background: var(--white); border: 1.5px solid var(--border); border-radius: 8px;
+  transition: border-color .18s, background .18s;
 }
-.footer-logo { font-weight: 800; font-size: 24px; color: var(--orange); }
-.footer-logo span { color: var(--white); }
-.footer-nav { display: flex; gap: 28px; justify-content: center; }
-.footer-nav a { font-size: 13px; color: var(--grey-light); text-decoration: none; transition: color 0.2s; }
-.footer-nav a:hover { color: var(--white); }
-.footer-right { text-align: right; }
-.footer-copy { font-size: 12px; color: var(--grey-light); font-weight: 300; opacity: 0.5; margin-bottom: 4px; }
-.footer-link { font-size: 12px; color: var(--orange); text-decoration: none; }
-.footer-link:hover { text-decoration: underline; }
-
-/* SCROLL REVEAL — scale in */
-.reveal {
-  opacity: 0;
-  transform: scale(0.94);
-  transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
+.bcheck:hover { border-color: var(--o); background: var(--o-pale); }
+.bcheck input { display: none; }
+.bcheck-box {
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+  border: 1.5px solid var(--mid); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; background: var(--off);
 }
-.reveal.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-.reveal-d1 { transition-delay: 0.05s; }
-.reveal-d2 { transition-delay: 0.12s; }
-.reveal-d3 { transition-delay: 0.19s; }
-.reveal-d4 { transition-delay: 0.26s; }
-.reveal-d5 { transition-delay: 0.33s; }
+.bcheck input:checked ~ .bcheck-box { background: var(--o); border-color: var(--o); }
+.bcheck input:checked ~ .bcheck-box::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+.bcheck-lbl { font-size: 13px; color: var(--muted); line-height: 1.45; }
+.bcheck:has(input:checked) { border-color: rgba(244,80,10,0.3); }
+.bcheck:has(input:checked) .bcheck-lbl { color: var(--ink); }
 
-/* RESPONSIVE */
-@media (max-width: 860px) {
-  nav { padding: 0 24px; }
+.privacy-note {
+  font-size: 12px; color: var(--muted); line-height: 1.6;
+  padding: 12px 16px;
+  background: var(--green); border-radius: 6px;
+  margin-bottom: 20px; color: var(--green-txt);
+}
+
+.submit-btn {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 14px; font-weight: 700;
+  background: var(--o); color: #fff;
+  border: none; padding: 16px 44px; border-radius: 8px; cursor: none;
+  transition: background .18s, transform .15s, box-shadow .18s;
+}
+.submit-btn:hover { background: #d94009; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(244,80,10,0.3); }
+
+.success-msg {
+  display: none; margin-top: 20px;
+  padding: 18px 20px; border-radius: 8px;
+  background: var(--green); color: var(--green-txt);
+  font-size: 14px; font-weight: 600;
+}
+.success-msg.on { display: block; }
+
+/* ── SCROLL REVEAL ── */
+.sr { opacity:0; transform:translateY(28px); transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
+.sr.on { opacity:1; transform:none; }
+.d1{transition-delay:.05s} .d2{transition-delay:.12s} .d3{transition-delay:.19s} .d4{transition-delay:.26s}
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px){
+  body { cursor: auto; }
+  #cur { display: none; }
+  nav { padding: 0 20px; }
   .nav-links { display: none; }
-  .hero { padding: 100px 24px 72px; min-height: auto; }
-  .section { padding: 64px 24px; }
-  .steps { grid-template-columns: 1fr; }
-  .calc-grid { grid-template-columns: 1fr; }
-  .for-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
-  .explainer { padding: 36px 28px; }
-  footer { grid-template-columns: 1fr; gap: 20px; padding: 32px 24px; text-align: center; }
-  .footer-right { text-align: center; }
-  .footer-nav { flex-wrap: wrap; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-row { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .hero-actions { align-items: flex-start; }
+  .hiw { padding: 72px 20px; }
+  .steps { grid-template-columns: 1fr; gap: 40px; }
+  .steps::before { display: none; }
+  .hiw-top { flex-direction: column; align-items: flex-start; }
+  .hiw-note { text-align: left; }
+  .calc-inner, .pricing-section, .form-inner { padding: 72px 20px; }
+  .calc-grid, .pricing-layout { grid-template-columns: 1fr; }
+  .form-inner { grid-template-columns: 1fr; gap: 40px; }
+  .frow { grid-template-columns: 1fr; }
+  .hiw-callout { flex-direction: column; padding: 32px 28px; }
 }
 </style>
 </head>
 <body>
 
+<div id="cur"><div id="cur-dot"></div><div id="cur-ring"></div></div>
+
+<!-- NAV -->
 <nav>
-    <a href="#" class="nav-logo">Glean<span>In</span></a>
+  <a href="#" class="nav-logo">Glean<span>In</span></a>
   <ul class="nav-links">
-    <li><a href="#how-it-works">How It Works</a></li>
-    <li><a href="#calculator">Calculator</a></li>
+    <li><a href="#hiw">How It Works</a></li>
+    <li><a href="#calc">Calculator</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#post" class="nav-cta">Post a Project</a></li>
-    <li><span class="nav-tag">Talent? <a href="talent.html">Join here</a></span></li>
+    <li><a href="talent.html">For Talent</a></li>
   </ul>
+  <a href="#post" class="nav-post">Post a Project</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="reveal reveal-d1">
-    <p class="hero-label">GleanIn — For Founders</p>
-  </div>
-  <div class="reveal reveal-d2">
-    <h1>Vetted talent.<br><span>Zero upfront cost.</span></h1>
-  </div>
-  <div class="reveal reveal-d3">
-    <p class="hero-sub">Connect with vetted professionals who defer payment until your next funding round.</p>
-  </div>
-  <div class="reveal reveal-d4">
-    <a href="#post" class="btn-primary">Post a Project</a>
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      For Founders
+    </div>
+    <h1 class="hero-h1">
+      <span class="block">Vetted talent.</span>
+      <span class="block"><em>Zero</em> upfront.</span>
+    </h1>
+    <div class="hero-row">
+      <p class="hero-sub">Connect with <strong>vetted professionals</strong> who defer payment until your next funding round — so you can build without burning runway.</p>
+      <div class="hero-actions">
+        <a href="#post" class="btn-o">Post a Project →</a>
+        <a href="#hiw" class="btn-ghost">See how it works ↓</a>
+      </div>
+    </div>
+
   </div>
 </section>
+
+<hr class="divider">
 
 <!-- HOW IT WORKS -->
-<div class="bg-dark">
-<section class="section" id="how-it-works">
-  <div class="reveal reveal-d1"><p class="section-label">How It Works</p></div>
-  <div class="reveal reveal-d2"><h2>Three steps.</h2></div>
-  <div class="reveal reveal-d3"><p class="section-sub">Simple from start to finish.</p></div>
-  <div class="steps">
-    <div class="step reveal reveal-d1">
-      <div class="step-number">STEP 01</div>
-      <div class="step-title">Post your project</div>
-      <p class="step-desc">Describe what you need, set a deferred payment amount, and define milestones.</p>
+<div id="hiw">
+  <div class="hiw">
+    <div class="hiw-top">
+      <div class="hiw-heading sr d1">
+        <p class="sec-eyebrow">How It Works</p>
+        <h2>Three steps.<br><em>That's it.</em></h2>
+      </div>
+      <p class="hiw-note sr d2">Post your project, get matched with vetted talent, settle at your next raise.</p>
     </div>
-    <div class="step reveal reveal-d2">
-      <div class="step-number">STEP 02</div>
-      <div class="step-title">A talent applies</div>
-      <p class="step-desc">Verified students and professionals review your project. They reach out directly. They invest in you because they believe in what you are building.</p>
+    <div class="steps">
+      <div class="step sr d2">
+        <div class="step-dot">1</div>
+        <div class="step-title">Post your project</div>
+        <p class="step-body">Describe what you need, set a deferred payment amount, and define milestones. Takes five minutes.</p>
+      </div>
+      <div class="step sr d3">
+        <div class="step-dot">2</div>
+        <div class="step-title">Talent applies</div>
+        <p class="step-body">Verified professionals review your project and reach out directly. They believe in what you're building — so they invest their time now.</p>
+      </div>
+      <div class="step sr d4">
+        <div class="step-dot">3</div>
+        <div class="step-title">Settle at your round</div>
+        <p class="step-body">Their deferred payment converts at your next funding round valuation. A standardized agreement protects both parties from day one.</p>
+      </div>
     </div>
-    <div class="step reveal reveal-d3">
-      <div class="step-number">STEP 03</div>
-      <div class="step-title">You settle at your next round</div>
-      <p class="step-desc">Their deferred payment converts at your next funding round valuation. A standardized agreement protects both parties from day one.</p>
+    <div class="hiw-callout sr d4">
+      <p class="callout-text">At a <strong>$10M valuation,</strong> a $2,000 project costs you just <strong>0.02%</strong> of your company.</p>
+      <a href="#calc" class="callout-link">Run the numbers →</a>
     </div>
   </div>
-  <div class="reveal reveal-d4">
-    <div class="explainer">
-      <p class="explainer-text">You need a contractor. GleanIn lets you defer that payment and get the work done today. At a <strong>$10M valuation,</strong> a $5,000 project costs you <span class="hi">0.05% of your company.</span></p>
-    </div>
-  </div>
-</section>
 </div>
+
+<hr class="divider">
 
 <!-- CALCULATOR -->
-<section class="section" id="calculator">
-  <div class="reveal reveal-d1"><p class="section-label">Equity Calculator</p></div>
-  <div class="reveal reveal-d2"><h2>See what you're offering.</h2></div>
-  <div class="reveal reveal-d3"><p class="section-sub">Enter the deferred payment amount and your target valuation.</p></div>
-  <div class="calc-grid">
-    <div class="calc-box reveal reveal-d1">
-      <div class="calc-box-title">Run your numbers</div>
-      <div class="input-group">
-        <label class="input-label">Deferred payment amount</label>
-        <div class="input-wrap"><span>$</span><input type="number" class="input-field" id="projectValue" placeholder="5000" oninput="calculate()"></div>
+<div class="calc-section" id="calc">
+  <div class="calc-inner">
+    <p class="sec-eyebrow sr d1">Equity Calculator</p>
+    <h2 class="sr d2">See what you're <em>offering.</em></h2>
+    <div class="calc-grid">
+      <div class="calc-card sr d3">
+        <div class="calc-card-title">Run your numbers</div>
+        <label class="inp-lbl">Deferred payment amount</label>
+        <div class="inp-wrap">
+          <span class="inp-pre">$</span>
+          <input type="number" class="inp" id="pv" placeholder="2,000" oninput="runCalc()">
+        </div>
+        <label class="inp-lbl">Target valuation at next round</label>
+        <div class="inp-wrap">
+          <span class="inp-pre">$</span>
+          <input type="number" class="inp" id="vv" placeholder="10,000,000" oninput="runCalc()">
+        </div>
+        <div class="calc-result" id="cRes">
+          <div class="cr-lbl">Equity you're offering</div>
+          <div class="cr-pct" id="cPct">—</div>
+        </div>
       </div>
-      <div class="input-group">
-        <label class="input-label">Target valuation at next round</label>
-        <div class="input-wrap"><span>$</span><input type="number" class="input-field" id="valuation" placeholder="10000000" oninput="calculate()"></div>
-      </div>
-      <div class="calc-result" id="calcResult">
-        <div class="result-label">Equity you're offering</div>
-        <div class="result-pct" id="equityPct">—</div>
-      </div>
-    </div>
-    <div class="calc-box reveal reveal-d2">
-      <div class="calc-box-title">What does $5,000 cost you?</div>
-      <div id="scenarioTable">
-        <div class="scenario-row"><span class="scenario-label">At $1M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.500%</span></div></div>
-        <div class="scenario-row"><span class="scenario-label">At $2M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.250%</span></div></div>
-        <div class="scenario-row"><span class="scenario-label">At $5M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.100%</span></div></div>
-        <div class="scenario-row"><span class="scenario-label">At $10M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.050%</span></div></div>
-        <div class="scenario-row"><span class="scenario-label">At $20M valuation</span><div class="scenario-right"><span class="scenario-val">$5,000</span><span class="scenario-pct">= 0.025%</span></div></div>
+      <div class="calc-card sr d4">
+        <div class="calc-card-title">What does $2,000 cost?</div>
+        <table class="sc-table">
+          <thead><tr><th>Valuation</th><th>Amount</th><th>Equity</th></tr></thead>
+          <tbody>
+            <tr><td>$1M</td><td class="sv">$2,000</td><td class="td-o sp">0.200%</td></tr>
+            <tr><td>$2M</td><td class="sv">$2,000</td><td class="td-o sp">0.100%</td></tr>
+            <tr><td>$5M</td><td class="sv">$2,000</td><td class="td-o sp">0.040%</td></tr>
+            <tr><td>$10M</td><td class="sv">$2,000</td><td class="td-o sp">0.020%</td></tr>
+            <tr><td>$20M</td><td class="sv">$2,000</td><td class="td-o sp">0.010%</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<hr class="divider">
 
 <!-- PRICING -->
-<div class="bg-dark">
-<section class="section" id="pricing">
-  <div class="reveal reveal-d1"><p class="section-label">Pricing</p></div>
-  <div class="reveal reveal-d2"><h2>One flat rate.</h2></div>
-  <div class="reveal reveal-d3"><p class="section-sub">$25 per month for unlimited project posts and access to our full talent network.</p></div>
-  <div class="reveal reveal-d4" style="max-width:340px;">
-    <div class="pricing-card">
-      <div class="price-amount"><sup>$</sup>25</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>Unlimited project posts</li>
-        <li>Access to verified talent</li>
-        <li>Standardized agreement, auto-generated</li>
-        <li>Milestone tracking and verification</li>
-        <li>Direct talent contact</li>
-      </ul>
-      <a href="#post" class="btn-primary" style="width:100%;text-align:center;display:block;">Get Started</a>
-      <p class="price-note">No contract. Cancel anytime.</p>
+<div id="pricing">
+  <div class="pricing-section">
+    <p class="sec-eyebrow sr d1">Pricing</p>
+    <h2 class="sr d2">One flat rate. <em>No surprises.</em></h2>
+    <div class="pricing-layout">
+      <div class="pricing-text sr d3">
+        <p class="sub">$25 per month for unlimited project posts and full access to our vetted talent network. No contract, no hidden fees.</p>
+      </div>
+      <div class="pricing-card sr d4">
+        <div class="card-top">
+          <div class="card-price"><sup>$</sup>25</div>
+          <div class="card-period">per month</div>
+        </div>
+        <div class="card-bottom">
+          <ul class="card-feats">
+            <li>Unlimited project posts</li>
+            <li>Access to verified talent</li>
+            <li>Milestone tracking</li>
+            <li>Direct talent contact</li>
+          </ul>
+          <a href="#post" class="card-cta">Get Started Today</a>
+          <p class="card-fine">No contract. Cancel anytime.</p>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 </div>
 
-<!-- WHO IT'S FOR -->
-<section class="section">
-  <div class="reveal reveal-d1"><p class="section-label">Who It's For</p></div>
-  <div class="reveal reveal-d2"><h2>Early to mid-stage founders.</h2></div>
-  <div class="reveal reveal-d3"><p class="section-sub">If you're building something real and need skilled people to help you get there.</p></div>
-  <div class="for-grid">
-    <div class="for-card reveal reveal-d1">
-      <div class="for-stage">Pre-Seed</div>
-      <div class="for-title">Before your first round</div>
-      <p class="for-desc">You have the idea and the drive. You need help with research, strategy, or analysis — but your runway doesn't allow for contractor fees yet.</p>
-    </div>
-    <div class="for-card reveal reveal-d2">
-      <div class="for-stage">Seed</div>
-      <div class="for-title">After your first raise</div>
-      <p class="for-desc">Every dollar needs to go to product and growth. Defer non-core costs without giving up meaningful equity too early.</p>
-    </div>
-    <div class="for-card reveal reveal-d3">
-      <div class="for-stage">Series A</div>
-      <div class="for-title">Scaling fast</div>
-      <p class="for-desc">You need specialized help across multiple workstreams. Bring in experienced professionals who are invested in your outcome — literally.</p>
-    </div>
-  </div>
-</section>
+<hr class="divider">
 
 <!-- POST A PROJECT -->
-<div class="bg-dark">
-<section class="section" id="post">
-  <div class="reveal reveal-d1"><p class="section-label">Post a Project</p></div>
-  <div class="reveal reveal-d2"><h2>Tell us what you need.</h2></div>
-  <div class="reveal reveal-d3"><p class="section-sub">Your listing reaches verified talent directly.</p></div>
-  <div class="form-container reveal reveal-d4">
-    <form id="projectForm" action="https://formspree.io/f/xojkjqen" method="POST">
-      <div class="form-section-label">Company</div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Company Name <span>*</span></label>
-          <input type="text" name="company_name" class="form-input" placeholder="Acme Inc." required>
+<div class="form-section" id="post">
+  <div class="form-inner">
+    <div class="form-aside">
+      <div class="aside-box sr d1">
+        <div class="aside-box-title">Post a Project</div>
+        <p class="aside-box-body">Your listing reaches verified talent directly. We review every post before it goes live.</p>
+      </div>
+
+    </div>
+    <div class="sr d2">
+      <p class="sec-eyebrow" style="margin-bottom:8px;">Tell us what you need</p>
+      <form id="pForm" action="https://formspree.io/f/xojkjqen" method="POST">
+        <div class="fspacer" style="height:24px;"></div>
+        <div class="fsec">Company</div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Company Name <span class="r">*</span></label><input type="text" name="company_name" class="fi" placeholder="Acme Inc." required></div>
+          <div class="fg"><label class="fl">Website <span class="r">*</span></label><input type="url" name="company_website" class="fi" placeholder="https://acme.com" required></div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Company Website <span>*</span></label>
-          <input type="url" name="company_website" class="form-input" placeholder="https://acme.com" required>
+        <div class="fg"><label class="fl">LinkedIn</label><input type="url" name="linkedin" class="fi" placeholder="https://linkedin.com/in/you"></div>
+
+        <div class="fspacer"></div>
+        <div class="fsec">Project</div>
+        <div class="fg"><label class="fl">Project Title <span class="r">*</span></label><input type="text" name="project_title" class="fi" placeholder="e.g. Market Research, Brand Identity" required></div>
+        <div class="fg"><label class="fl">Job Description <span class="r">*</span></label><textarea name="job_description" class="ft" placeholder="Describe the work, skills needed, and what success looks like..." required></textarea></div>
+        <div class="fg"><label class="fl">Area of Interest</label><input type="text" name="area_of_interest" class="fi" placeholder="e.g. healthcare research, financial modeling"><p class="fhint">What kind of background are you looking for?</p></div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Deferred Payment <span class="r">*</span></label><div class="dollar-f"><span class="dp">$</span><input type="number" name="payment_amount" class="fi" placeholder="2,000" required></div><p class="fhint">Converts at your next round.</p></div>
+          <div class="fg"><label class="fl">Timeline <span class="r">*</span></label><input type="text" name="timeline" class="fi" placeholder="e.g. 6 weeks, 3 months" required></div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">LinkedIn Profile</label>
-        <input type="url" name="linkedin" class="form-input" placeholder="https://linkedin.com/in/yourname">
-      </div>
-      <div class="form-spacer"></div>
-      <div class="form-section-label">Project</div>
-      <div class="form-group">
-        <label class="form-label">Project Title <span>*</span></label>
-        <input type="text" name="project_title" class="form-input" placeholder="e.g. Market Research, Brand Identity, Financial Analysis" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Job Description <span>*</span></label>
-        <textarea name="job_description" class="form-textarea" placeholder="Describe the work, the skills needed, and what a successful outcome looks like..." required></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Area of Interest <span style="color:var(--grey-light);font-weight:300;">(Optional)</span></label>
-        <input type="text" name="area_of_interest" class="form-input" placeholder="e.g. healthcare research, financial modeling, legal research, UX design, go-to-market">
-        <p class="form-hint">What kind of background or skill set are you looking for?</p>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Deferred Payment Amount <span>*</span></label>
-          <div class="dollar-wrap"><span>$</span><input type="number" name="payment_amount" class="form-input" placeholder="5,000" required></div>
-          <p class="form-hint">The dollar value that converts at your next funding round.</p>
+
+        <div class="fspacer"></div>
+        <div class="fsec">Your Background</div>
+        <p class="fhint" style="margin-bottom:16px;">Only signals you select are shown.</p>
+        <div class="fg">
+          <div class="bcheck-list">
+            <label class="bcheck"><input type="checkbox" name="badge_phd" value="phd"><span class="bcheck-box"></span><span class="bcheck-lbl">PhD</span></label>
+            <label class="bcheck"><input type="checkbox" name="badge_exit" value="exited"><span class="bcheck-box"></span><span class="bcheck-lbl">Previous exit</span></label>
+            <label class="bcheck"><input type="checkbox" name="badge_repeat" value="repeat"><span class="bcheck-box"></span><span class="bcheck-lbl">2nd or 3rd company</span></label>
+            <label class="bcheck"><input type="checkbox" name="badge_tier1" value="tier1"><span class="bcheck-box"></span><span class="bcheck-lbl">Worked at a top-tier company (Google, Apple, Stripe, McKinsey, etc.)</span></label>
+            <label class="bcheck"><input type="checkbox" name="badge_raised" value="raised"><span class="bcheck-box"></span><span class="bcheck-lbl">Previously raised institutional capital</span></label>
+            <label class="bcheck"><input type="checkbox" name="badge_seed" value="seed"><span class="bcheck-box"></span><span class="bcheck-lbl">Current company has raised seed or pre-seed</span></label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Timeline <span>*</span></label>
-          <input type="text" name="timeline" class="form-input" placeholder="e.g. 6 weeks, 3 months" required>
+        <div class="frow" style="margin-top:16px;">
+          <div class="fg"><label class="fl">Time Building</label><select name="time_building" class="fi"><option value="">Select</option><option>Under 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Over a year</option></select></div>
+          <div class="fg"><label class="fl">Build Stage</label><select name="build_stage" class="fi"><option value="">Select</option><option>Idea stage</option><option>Prototype or demo</option><option>Live MVP</option><option>Paying customers</option></select></div>
         </div>
-      </div>
-      <div class="form-spacer"></div>
-      <div class="form-section-label">Your Background</div>
-      <p class="form-hint" style="margin-bottom:20px;">Only signals you select are shown — nothing is marked as missing.</p>
-      <div class="form-group">
-        <label class="form-label">Which of these apply to you?</label>
-        <div class="badge-checks">
-          <label class="badge-check"><input type="checkbox" name="badge_exit" value="exited"><span class="badge-check-box"></span><span class="badge-check-label">Previous exit</span></label>
-          <label class="badge-check"><input type="checkbox" name="badge_repeat" value="repeat"><span class="badge-check-box"></span><span class="badge-check-label">2nd or 3rd company</span></label>
-          <label class="badge-check"><input type="checkbox" name="badge_tier1" value="tier1"><span class="badge-check-box"></span><span class="badge-check-label">Worked at a top-tier company (Google, Apple, Stripe, Brex, McKinsey, etc.)</span></label>
-          <label class="badge-check"><input type="checkbox" name="badge_raised" value="raised"><span class="badge-check-box"></span><span class="badge-check-label">Previously raised institutional capital</span></label>
-          <label class="badge-check"><input type="checkbox" name="badge_seed" value="seed"><span class="badge-check-box"></span><span class="badge-check-label">Current company has raised seed or pre-seed</span></label>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">How long have you been working on this?</label>
-          <select name="time_building" class="form-input">
-            <option value="">Select</option>
-            <option value="under3">Under 3 months</option>
-            <option value="3to6">3 to 6 months</option>
-            <option value="6to12">6 to 12 months</option>
-            <option value="over12">Over a year</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">What have you built so far?</label>
-          <select name="build_stage" class="form-input">
-            <option value="">Select</option>
-            <option value="idea">Idea stage</option>
-            <option value="prototype">Prototype or demo</option>
-            <option value="mvp">Live MVP</option>
-            <option value="customers">Paying customers</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-spacer"></div>
-      <div class="form-section-label">Your Pitch (Optional)</div>
-      <div class="form-group">
-        <label class="form-label">Want to say more? Add a short pitch.</label>
-        <textarea name="pitch_optional" class="form-textarea" style="min-height:100px;" placeholder="Tell talent why they should work with you. 2-3 sentences is plenty."></textarea>
-      </div>
-      <div class="form-spacer"></div>
-      <div class="form-section-label">Contact</div>
-      <div class="privacy-row"><p>🔒 Your contact email is kept private. Only shared with vetted talent after we review their application.</p></div>
-      <div class="form-group">
-        <label class="form-label">Contact Email <span>*</span></label>
-        <input type="email" name="contact_email" class="form-input" placeholder="you@company.com" required>
-      </div>
-      <div class="submit-area">
-        <button type="submit" class="btn-primary">Submit Project</button>
-        <p class="submit-note">Your listing will be reviewed before going live. Usually within 48 hours.</p>
-      </div>
-      <div class="success-box" id="successBox">
-        <h4>Project received.</h4>
-        <p>We'll review your listing and be in touch within 48 hours.</p>
-      </div>
-    </form>
+
+        <div class="fspacer"></div>
+        <div class="fsec">Optional Pitch</div>
+        <div class="fg"><textarea name="pitch_optional" class="ft" style="min-height:90px;" placeholder="Why should talented people work with you? 2–3 sentences."></textarea></div>
+
+        <div class="fspacer"></div>
+        <div class="fsec">Contact</div>
+        <div class="privacy-note">🔒 Your contact email is kept private — only shared with vetted talent after we review their application.</div>
+        <div class="fg"><label class="fl">Email <span class="r">*</span></label><input type="email" name="contact_email" class="fi" placeholder="you@company.com" required></div>
+        <button type="submit" class="submit-btn">Submit Project →</button>
+        <div class="success-msg" id="sMsg">✓ Project received — we'll be in touch within 48 hours.</div>
+      </form>
+    </div>
   </div>
-</section>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Glean<span>In</span></div>
-  <nav class="footer-nav">
-    <a href="#how-it-works">How It Works</a>
-    <a href="#calculator">Calculator</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#post">Post a Project</a>
-  </nav>
-  <div class="footer-right">
-    <p class="footer-copy">© 2026 GleanIn</p>
-    <a href="talent.html" class="footer-link">For Talent →</a>
-  </div>
-</footer>
-
 <script>
+/* CURSOR */
+const dot = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx=-100,my=-100,rx=-100,ry=-100;
+document.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){
+  rx+=(mx-rx)*.15; ry+=(my-ry)*.15;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,button,input,textarea,select,label,.step,.calc-card,.pricing-card,.hiw-callout').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+document.addEventListener('mousedown',()=>document.body.classList.add('click'));
+document.addEventListener('mouseup',()=>document.body.classList.remove('click'));
+
 /* SCROLL REVEAL */
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.07,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.sr').forEach(el=>obs.observe(el));
 
 /* CALCULATOR */
-function calculate() {
-  const p = parseFloat(document.getElementById('projectValue').value);
-  const v = parseFloat(document.getElementById('valuation').value);
-  const r = document.getElementById('calcResult');
-  if (p && v && v > 0) {
-    const pct = (p / v) * 100;
-    const fmt = n => n < 0.001 ? n.toFixed(4) + '%' : n < 0.1 ? n.toFixed(4) + '%' : n.toFixed(3) + '%';
-    document.getElementById('equityPct').textContent = fmt(pct);
-    r.style.display = 'block';
-    const vals = [1e6, 2e6, 5e6, 10e6, 20e6];
-    const labels = ['$1M', '$2M', '$5M', '$10M', '$20M'];
-    document.querySelectorAll('.scenario-row').forEach((row, i) => {
-      row.querySelector('.scenario-label').textContent = 'At ' + labels[i] + ' valuation';
-      row.querySelector('.scenario-val').textContent = '$' + p.toLocaleString();
-      row.querySelector('.scenario-pct').textContent = '= ' + fmt((p / vals[i]) * 100);
+function runCalc(){
+  const p=parseFloat(document.getElementById('pv').value);
+  const v=parseFloat(document.getElementById('vv').value);
+  const r=document.getElementById('cRes');
+  const fmt=n=>n<0.001?n.toFixed(4)+'%':n<0.1?n.toFixed(4)+'%':n.toFixed(3)+'%';
+  if(p&&v&&v>0){
+    document.getElementById('cPct').textContent=fmt((p/v)*100);
+    r.style.display='block';
+    const vals=[1e6,2e6,5e6,10e6,20e6];
+    document.querySelectorAll('.sc-table tbody tr').forEach((row,i)=>{
+      row.querySelector('.sv').textContent='$'+p.toLocaleString();
+      row.querySelector('.sp').textContent=fmt((p/vals[i])*100);
     });
-  } else { r.style.display = 'none'; }
+  } else { r.style.display='none'; }
 }
 
-/* FORM SUBMIT */
-document.getElementById('projectForm').addEventListener('submit', function(e) {
+/* FORM */
+document.getElementById('pForm').addEventListener('submit',function(e){
   e.preventDefault();
-  fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } })
-  .then(() => { document.getElementById('successBox').classList.add('show'); this.reset(); })
-  .catch(() => { document.getElementById('successBox').classList.add('show'); });
+  fetch(this.action,{method:'POST',body:new FormData(this),headers:{'Accept':'application/json'}})
+    .then(()=>{document.getElementById('sMsg').classList.add('on');this.reset();})
+    .catch(()=>document.getElementById('sMsg').classList.add('on'));
 });
 </script>
 </body>
